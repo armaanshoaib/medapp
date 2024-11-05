@@ -198,20 +198,13 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
   void _initializeNotifications() async {
     const androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    final initSettings = InitializationSettings(android: androidSettings);
-
+    const initSettings = InitializationSettings(android: androidSettings);
     await flutterLocalNotificationsPlugin.initialize(
       initSettings,
       onDidReceiveNotificationResponse: (details) {
         // Handle notification tap
       },
     );
-
-    // Check notification permissions
-    final bool? granted = await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestNotificationsPermission();
   }
 
   Future<void> _scheduleNotification(Medicine medicine) async {
@@ -264,12 +257,11 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
     TimeOfDay selectedTime = medicine?.notificationTime ?? TimeOfDay.now();
     bool notificationsEnabled = medicine?.notificationsEnabled ?? true;
     int stock = medicine?.stock ?? 0;
-
     await showDialog(
       context: this.context,
-      builder: (BuildContext dialogOuterContext) {
+      builder: (BuildContext dialogContext) {
         return StatefulBuilder(
-          builder: (BuildContext dialogInnerContext, StateSetter setState) {
+          builder: (BuildContext builderContext, StateSetter setState) {
             return AlertDialog(
               title: Text(isEditing ? "Edit Medicine" : "Add New Medicine"),
               content: SingleChildScrollView(
@@ -309,11 +301,11 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
                     ),
                     ListTile(
                       title: Text(
-                          "Notification Time: ${selectedTime.format(dialogInnerContext)}"),
+                          "Notification Time: ${selectedTime.format(dialogContext)}"),
                       trailing: const Icon(Icons.access_time),
                       onTap: () async {
                         final time = await showTimePicker(
-                          context: dialogInnerContext,
+                          context: dialogContext,
                           initialTime: selectedTime,
                         );
                         if (time != null) {
@@ -334,7 +326,7 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
               actions: [
                 TextButton(
                   child: const Text("Cancel"),
-                  onPressed: () => Navigator.of(dialogOuterContext).pop(),
+                  onPressed: () => Navigator.of(dialogContext).pop(),
                 ),
                 ElevatedButton(
                   child: Text(isEditing ? "Update" : "Add"),
@@ -353,7 +345,7 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
                     );
 
                     if (isEditing) {
-                      await Provider.of<MedicineModel>(dialogOuterContext,
+                      await Provider.of<MedicineModel>(dialogContext,
                               listen: false)
                           .updateMedicine(newMedicine);
                     } else {
@@ -368,7 +360,7 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
                         return;
                       }
 
-                      await Provider.of<MedicineModel>(dialogOuterContext,
+                      await Provider.of<MedicineModel>(dialogContext,
                               listen: false)
                           .addMedicine(newMedicine);
                     }
@@ -377,7 +369,7 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
                       await _scheduleNotification(newMedicine);
                     }
 
-                    Navigator.of(dialogOuterContext).pop();
+                    Navigator.of(dialogContext).pop();
                   },
                 ),
               ],
@@ -401,7 +393,7 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
             lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: DateTime.now(),
             calendarFormat: CalendarFormat.week,
-            availableCalendarFormats: const {CalendarFormat.week: 'Week'},
+            availableCalendarFormats: {CalendarFormat.week: 'Week'},
             calendarStyle: const CalendarStyle(
               todayDecoration: BoxDecoration(
                 color: Colors.teal,
@@ -431,6 +423,10 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
                           children: [
                             Text("${medicine.dosage} - ${medicine.schedule}"),
                             Text("Stock: ${medicine.stock}"),
+                            Text(
+                              "At - ${medicine.notificationTime.hour} :${medicine.notificationTime.minute} ",
+                              style: TextStyle(color: Colors.grey),
+                            ),
                           ],
                         ),
                         trailing: Row(
@@ -441,17 +437,53 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
                               onPressed: () => _showMedicineDialog(medicine),
                             ),
                             IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () async {
-                                await Provider.of<MedicineModel>(
-                                  context,
-                                  listen: false,
-                                ).removeMedicine(medicine);
-                                await flutterLocalNotificationsPlugin.cancel(
-                                  medicine.id ?? 0,
-                                );
-                              },
-                            ),
+                                icon: const Icon(Icons.delete),
+                                // onPressed: () => (Medicine medicine) async {
+                                //       final result = await showDialog<bool>(
+                                //         context: this.context,
+                                //         builder: (BuildContext dialogContext) {
+                                //           return AlertDialog(
+                                //             title:
+                                //                 const Text('Confirm Deletion'),
+                                //             content: const Text(
+                                //                 'Are you sure you want to delete this medicine?'),
+                                //             actions: [
+                                //               TextButton(
+                                //                 child: const Text("Cancel"),
+                                //                 onPressed: () =>
+                                //                     Navigator.of(dialogContext)
+                                //                         .pop(false),
+                                //               ),
+                                //               ElevatedButton(
+                                //                 child: const Text("Delete"),
+                                //                 onPressed: () =>
+                                //                     Navigator.of(dialogContext)
+                                //                         .pop(true),
+                                //               ),
+                                //             ],
+                                //           );
+                                //         },
+                                //       );
+
+                                //       if (result == true) {
+                                //         await Provider.of<MedicineModel>(
+                                //                 context,
+                                //                 listen: false)
+                                //             .removeMedicine(medicine);
+                                //         await flutterLocalNotificationsPlugin
+                                //             .cancel(medicine.id ?? 0);
+                                //       }
+                                //     }
+
+                                onPressed: () async {
+                                  await Provider.of<MedicineModel>(
+                                    context,
+                                    listen: false,
+                                  ).removeMedicine(medicine);
+                                  await flutterLocalNotificationsPlugin.cancel(
+                                    medicine.id ?? 0,
+                                  );
+                                }),
                           ],
                         ),
                       ),
