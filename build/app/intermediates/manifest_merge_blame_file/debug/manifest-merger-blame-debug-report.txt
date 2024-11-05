@@ -1,0 +1,217 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.medapp"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="34" />
+10    <!--
+11         The INTERNET permission is required for development. Specifically,
+12         the Flutter tool needs it to communicate with the running application
+13         to allow setting breakpoints, to provide hot reload, etc.
+14    -->
+15    <uses-permission android:name="android.permission.INTERNET" />
+15-->C:\iomp\medapp\android\app\src\debug\AndroidManifest.xml:6:5-66
+15-->C:\iomp\medapp\android\app\src\debug\AndroidManifest.xml:6:22-64
+16    <!--
+17     Required to query activities that can process text, see:
+18         https://developer.android.com/training/package-visibility and
+19         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+20
+21         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
+22    -->
+23    <queries>
+23-->C:\iomp\medapp\android\app\src\main\AndroidManifest.xml:39:5-44:15
+24        <intent>
+24-->C:\iomp\medapp\android\app\src\main\AndroidManifest.xml:40:9-43:18
+25            <action android:name="android.intent.action.PROCESS_TEXT" />
+25-->C:\iomp\medapp\android\app\src\main\AndroidManifest.xml:41:13-72
+25-->C:\iomp\medapp\android\app\src\main\AndroidManifest.xml:41:21-70
+26
+27            <data android:mimeType="text/plain" />
+27-->C:\iomp\medapp\android\app\src\main\AndroidManifest.xml:42:13-50
+27-->C:\iomp\medapp\android\app\src\main\AndroidManifest.xml:42:19-48
+28        </intent>
+29    </queries>
+30
+31    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+31-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-81
+31-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:7:22-78
+32    <uses-permission android:name="android.permission.VIBRATE" />
+32-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-66
+32-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:8:22-63
+33    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+33-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-81
+33-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-78
+34    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+34-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-79
+34-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:10:22-76
+35    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+35-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-77
+35-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:11:22-74
+36
+37    <permission
+37-->[androidx.core:core:1.13.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\28ee8a5ebc96d117de5598ee6fce01ba\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+38        android:name="com.example.medapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+38-->[androidx.core:core:1.13.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\28ee8a5ebc96d117de5598ee6fce01ba\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+39        android:protectionLevel="signature" />
+39-->[androidx.core:core:1.13.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\28ee8a5ebc96d117de5598ee6fce01ba\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+40
+41    <uses-permission android:name="com.example.medapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+41-->[androidx.core:core:1.13.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\28ee8a5ebc96d117de5598ee6fce01ba\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+41-->[androidx.core:core:1.13.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\28ee8a5ebc96d117de5598ee6fce01ba\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+42
+43    <application
+44        android:name="android.app.Application"
+45        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+45-->[androidx.core:core:1.13.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\28ee8a5ebc96d117de5598ee6fce01ba\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+46        android:debuggable="true"
+47        android:extractNativeLibs="true"
+48        android:icon="@mipmap/ic_launcher"
+49        android:label="medapp" >
+50        <activity
+51            android:name="com.example.medapp.MainActivity"
+52            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+53            android:exported="true"
+54            android:hardwareAccelerated="true"
+55            android:launchMode="singleTop"
+56            android:taskAffinity=""
+57            android:theme="@style/LaunchTheme"
+58            android:windowSoftInputMode="adjustResize" >
+59
+60            <!--
+61                 Specifies an Android theme to apply to this Activity as soon as
+62                 the Android process has started. This theme is visible to the user
+63                 while the Flutter UI initializes. After that, this theme continues
+64                 to determine the Window background behind the Flutter UI.
+65            -->
+66            <meta-data
+67                android:name="io.flutter.embedding.android.NormalTheme"
+68                android:resource="@style/NormalTheme" />
+69
+70            <intent-filter>
+71                <action android:name="android.intent.action.MAIN" />
+72
+73                <category android:name="android.intent.category.LAUNCHER" />
+74            </intent-filter>
+75        </activity>
+76        <!--
+77             Don't delete the meta-data below.
+78             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+79        -->
+80        <meta-data
+81            android:name="flutterEmbedding"
+82            android:value="2" />
+83
+84        <receiver
+84-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:14:9-16:40
+85            android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver"
+85-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-91
+86            android:exported="false" />
+86-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:16:13-37
+87        <receiver
+87-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:17:9-19:40
+88            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
+88-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-97
+89            android:exported="false" />
+89-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-37
+90        <receiver
+90-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:20:9-29:20
+91            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+91-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:21:13-101
+92            android:exported="false" >
+92-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:22:13-37
+93            <intent-filter>
+93-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:23:13-28:29
+94                <action android:name="android.intent.action.BOOT_COMPLETED" />
+94-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:24:17-79
+94-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:24:25-76
+95                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+95-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:25:17-84
+95-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:25:25-81
+96                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+96-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:26:17-82
+96-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:26:25-79
+97                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+97-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:27:17-82
+97-->[:flutter_local_notifications] C:\iomp\medapp\build\flutter_local_notifications\intermediates\merged_manifest\debug\AndroidManifest.xml:27:25-79
+98            </intent-filter>
+99        </receiver>
+100
+101        <uses-library
+101-->[androidx.window:window:1.2.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\a017c0c1c150e766625df730ca1d1522\transformed\jetified-window-1.2.0\AndroidManifest.xml:23:9-25:40
+102            android:name="androidx.window.extensions"
+102-->[androidx.window:window:1.2.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\a017c0c1c150e766625df730ca1d1522\transformed\jetified-window-1.2.0\AndroidManifest.xml:24:13-54
+103            android:required="false" />
+103-->[androidx.window:window:1.2.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\a017c0c1c150e766625df730ca1d1522\transformed\jetified-window-1.2.0\AndroidManifest.xml:25:13-37
+104        <uses-library
+104-->[androidx.window:window:1.2.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\a017c0c1c150e766625df730ca1d1522\transformed\jetified-window-1.2.0\AndroidManifest.xml:26:9-28:40
+105            android:name="androidx.window.sidecar"
+105-->[androidx.window:window:1.2.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\a017c0c1c150e766625df730ca1d1522\transformed\jetified-window-1.2.0\AndroidManifest.xml:27:13-51
+106            android:required="false" />
+106-->[androidx.window:window:1.2.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\a017c0c1c150e766625df730ca1d1522\transformed\jetified-window-1.2.0\AndroidManifest.xml:28:13-37
+107
+108        <provider
+108-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\6f1de229824e3b626519c3b4ed1eee9b\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:24:9-32:20
+109            android:name="androidx.startup.InitializationProvider"
+109-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\6f1de229824e3b626519c3b4ed1eee9b\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:25:13-67
+110            android:authorities="com.example.medapp.androidx-startup"
+110-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\6f1de229824e3b626519c3b4ed1eee9b\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:26:13-68
+111            android:exported="false" >
+111-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\6f1de229824e3b626519c3b4ed1eee9b\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:27:13-37
+112            <meta-data
+112-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\6f1de229824e3b626519c3b4ed1eee9b\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+113                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+113-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\6f1de229824e3b626519c3b4ed1eee9b\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+114                android:value="androidx.startup" />
+114-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\6f1de229824e3b626519c3b4ed1eee9b\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+115            <meta-data
+115-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+116                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+116-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+117                android:value="androidx.startup" />
+117-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+118        </provider>
+119
+120        <receiver
+120-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+121            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+121-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+122            android:directBootAware="false"
+122-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+123            android:enabled="true"
+123-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+124            android:exported="true"
+124-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+125            android:permission="android.permission.DUMP" >
+125-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+126            <intent-filter>
+126-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+127                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+127-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+127-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+128            </intent-filter>
+129            <intent-filter>
+129-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+130                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+130-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+130-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+131            </intent-filter>
+132            <intent-filter>
+132-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+133                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+133-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+133-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+134            </intent-filter>
+135            <intent-filter>
+135-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+136                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+136-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+136-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\Armaan Shoaib\.gradle\caches\transforms-3\497b559c30d96929b625a427f3dee739\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+137            </intent-filter>
+138        </receiver>
+139    </application>
+140
+141</manifest>
