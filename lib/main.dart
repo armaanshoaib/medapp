@@ -357,6 +357,17 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
                               listen: false)
                           .updateMedicine(newMedicine);
                     } else {
+                      if (medicineNameController.text.isEmpty ||
+                          dosageController.text.isEmpty ||
+                          stock <= 0) {
+                        ScaffoldMessenger.of(this.context).showSnackBar(
+                          const SnackBar(
+                              content: Text(
+                                  "Please fill in all fields with valid information")),
+                        );
+                        return;
+                      }
+
                       await Provider.of<MedicineModel>(dialogOuterContext,
                               listen: false)
                           .addMedicine(newMedicine);
