@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -8,6 +11,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 void main() async {
+  String stockRemAlert = "You are running low on stock";
   WidgetsFlutterBinding.ensureInitialized();
   tz.initializeTimeZones();
 
@@ -163,7 +167,9 @@ class MedicineReminderApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
           useMaterial3: true,
-        ),
+        ).copyWith(
+            textTheme:
+                GoogleFonts.aBeeZeeTextTheme(Theme.of(context).textTheme)),
         home: const MedicineHomePage(),
       ),
     );
@@ -193,6 +199,37 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
   void initState() {
     super.initState();
     _initializeNotifications();
+  }
+
+  Future<void> _confirmDelete(Medicine medicine) async {
+    final result = await showDialog<bool>(
+      context: this.context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('Confirm Deletion'),
+          content: const Text('Are you sure you want to delete this medicine?'),
+          actions: [
+            TextButton(
+              child: const Text("Cancel"),
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+            ),
+            ElevatedButton(
+              child: const Text("Delete"),
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result == true) {
+      await Provider.of<MedicineModel>(this.context, listen: false)
+          .removeMedicine(medicine);
+      await flutterLocalNotificationsPlugin.cancel(medicine.id ?? 0);
+      ScaffoldMessenger.of(this.context).showSnackBar(
+        const SnackBar(content: Text("Medicine Deleted!")),
+      );
+    }
   }
 
   void _initializeNotifications() async {
@@ -343,33 +380,67 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
                       startDate: DateTime.now(),
                       endDate: DateTime.now().add(const Duration(days: 30)),
                     );
+                    if (medicineNameController.text.isEmpty ||
+                        dosageController.text.isEmpty ||
+                        stock <= 0) {
+                      ScaffoldMessenger.of(this.context).showSnackBar(
+                        const SnackBar(
+                            content: Text(
+                                "Please fill in all fields with valid information")),
+                      );
+                      return;
+                    }
 
                     if (isEditing) {
-                      await Provider.of<MedicineModel>(dialogContext,
-                              listen: false)
-                          .updateMedicine(newMedicine);
-                    } else {
-                      if (medicineNameController.text.isEmpty ||
-                          dosageController.text.isEmpty ||
-                          stock <= 0) {
-                        ScaffoldMessenger.of(this.context).showSnackBar(
-                          const SnackBar(
-                              content: Text(
-                                  "Please fill in all fields with valid information")),
-                        );
-                        return;
-                      }
+                      final confirm = await showDialog<bool>(
+                        context: this.context,
+                        builder: (BuildContext dialogContext) {
+                          return AlertDialog(
+                            title: const Text('Confirm Edit'),
+                            content:
+                                const Text('Save changes to this medicine?'),
+                            actions: [
+                              TextButton(
+                                child: const Text("Cancel"),
+                                onPressed: () =>
+                                    Navigator.of(dialogContext).pop(false),
+                              ),
+                              ElevatedButton(
+                                  child: const Text("Confirm"),
+                                  onPressed: () async {
+                                    Provider.of<MedicineModel>(dialogContext,
+                                            listen: false)
+                                        .updateMedicine(newMedicine)
+                                        .then(
+                                          ScaffoldMessenger.of(this.context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                                content:
+                                                    Text("Medicine Updated")),
+                                          ) as FutureOr Function(void value),
+                                        );
+                                  }),
+                            ],
+                          );
+                        },
+                      );
 
+                      if (confirm == true) {
+                        // Proceed with update
+                      }
+                    } else {
                       await Provider.of<MedicineModel>(dialogContext,
                               listen: false)
                           .addMedicine(newMedicine);
+                      Navigator.of(dialogContext).pop();
+                      ScaffoldMessenger.of(this.context).showSnackBar(
+                        const SnackBar(content: Text("Medicine Added")),
+                      );
                     }
 
                     if (notificationsEnabled) {
                       await _scheduleNotification(newMedicine);
                     }
-
-                    Navigator.of(dialogContext).pop();
                   },
                 ),
               ],
@@ -393,7 +464,7 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
             lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: DateTime.now(),
             calendarFormat: CalendarFormat.week,
-            availableCalendarFormats: {CalendarFormat.week: 'Week'},
+            availableCalendarFormats: const {CalendarFormat.week: 'Week'},
             calendarStyle: const CalendarStyle(
               todayDecoration: BoxDecoration(
                 color: Colors.teal,
@@ -411,82 +482,54 @@ class _MedicineHomePageState extends State<MedicineHomePage> {
                   itemCount: medicineModel.medicines.length,
                   itemBuilder: (context, index) {
                     final medicine = medicineModel.medicines[index];
+
                     return Card(
                       margin: const EdgeInsets.symmetric(
                         horizontal: 8,
                         vertical: 4,
                       ),
-                      child: ListTile(
-                        title: Text(medicine.name),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("${medicine.dosage} - ${medicine.schedule}"),
-                            Text("Stock: ${medicine.stock}"),
-                            Text(
-                              "At - ${medicine.notificationTime.hour} :${medicine.notificationTime.minute} ",
-                              style: TextStyle(color: Colors.grey),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 24, 38, 42),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: ListTile(
+                            title: Text(medicine.name,
+                                style: const TextStyle(color: Colors.white)),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    "${medicine.dosage} - ${medicine.schedule}",
+                                    style:
+                                        const TextStyle(color: Colors.white)),
+                                Text("Stock: ${medicine.stock}",
+                                    style:
+                                        const TextStyle(color: Colors.white)),
+                                Text(
+                                  "To be taken at ${medicine.notificationTime.hour}:${medicine.notificationTime.minute} ",
+                                  style: const TextStyle(
+                                      color: Colors.greenAccent),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: () => _showMedicineDialog(medicine),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.edit),
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255),
+                                  onPressed: () =>
+                                      _showMedicineDialog(medicine),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  color: const Color.fromARGB(255, 239, 29, 29),
+                                  onPressed: () => _confirmDelete(medicine),
+                                ),
+                              ],
                             ),
-                            IconButton(
-                                icon: const Icon(Icons.delete),
-                                // onPressed: () => (Medicine medicine) async {
-                                //       final result = await showDialog<bool>(
-                                //         context: this.context,
-                                //         builder: (BuildContext dialogContext) {
-                                //           return AlertDialog(
-                                //             title:
-                                //                 const Text('Confirm Deletion'),
-                                //             content: const Text(
-                                //                 'Are you sure you want to delete this medicine?'),
-                                //             actions: [
-                                //               TextButton(
-                                //                 child: const Text("Cancel"),
-                                //                 onPressed: () =>
-                                //                     Navigator.of(dialogContext)
-                                //                         .pop(false),
-                                //               ),
-                                //               ElevatedButton(
-                                //                 child: const Text("Delete"),
-                                //                 onPressed: () =>
-                                //                     Navigator.of(dialogContext)
-                                //                         .pop(true),
-                                //               ),
-                                //             ],
-                                //           );
-                                //         },
-                                //       );
-
-                                //       if (result == true) {
-                                //         await Provider.of<MedicineModel>(
-                                //                 context,
-                                //                 listen: false)
-                                //             .removeMedicine(medicine);
-                                //         await flutterLocalNotificationsPlugin
-                                //             .cancel(medicine.id ?? 0);
-                                //       }
-                                //     }
-
-                                onPressed: () async {
-                                  await Provider.of<MedicineModel>(
-                                    context,
-                                    listen: false,
-                                  ).removeMedicine(medicine);
-                                  await flutterLocalNotificationsPlugin.cancel(
-                                    medicine.id ?? 0,
-                                  );
-                                }),
-                          ],
-                        ),
-                      ),
+                          )),
                     );
                   },
                 );

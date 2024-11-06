@@ -1,11 +1,13 @@
-- delete confirmation
+- undo delete
 - notification
 - multiple times (once, twice, alternate, particular day)
 - red color half hour before
 - taken, skip buttons
 - edit confirm
-- font
 - show time on med
 - iOS
 - informative text beside medisync
 - show meds on a partic date
+- med CRUD feedback
+- 12/24 hr clock
+- sort based on time
